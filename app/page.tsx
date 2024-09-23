@@ -52,7 +52,7 @@ export default function Portfolio() {
           
           {/* Left Section */}
           <div className="flex-1 mb-8 md:mb-0 px-4">
-            <h1 className="text-lg font-normal mb-4">Hello, I'm Channdavel</h1>
+            <h1 className="text-lg font-normal mb-4">Hello, I&apos;m Channdavel</h1>
             {expanded && (
               <div className="mt-4 animate-fade-in">
                 <p className="mb-4" style={{ color: '#818181' }}>
@@ -78,7 +78,7 @@ export default function Portfolio() {
               <div className="mt-4 animate-fade-in">
                 <p className="text-lg font-normal mb-4">I learn</p>
                 <p className="mb-4" style={{ color: '#818181' }}>
-                  I'm currently pursuing a Bachelor's Degree in Information Science and a Certificate in Children's Literature at the University of Pittsburgh. I have a passion for coding, learning, and building. 
+                  I&apos;m currently pursuing a Bachelor&apos;s Degree in Information Science and a Certificate in Children&apos;s Literature at the University of Pittsburgh. I have a passion for coding, learning, and building. 
                 </p>
               </div>
             )}
@@ -86,7 +86,7 @@ export default function Portfolio() {
 
           {/* Right Section */}
           <div className="flex-1 mb-8 md:mb-0 px-12">
-            <h2 className="text-lg font-normal mb-4">Let's connect</h2>
+            <h2 className="text-lg font-normal mb-4">Let&apos;s connect</h2>
             <ul className="text-lg font-normal mb-4 space-y-2">
               <li>
                 <Link 
