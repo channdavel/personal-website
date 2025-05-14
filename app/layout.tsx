@@ -1,15 +1,16 @@
 import './globals.css'
-import { Inter } from 'next/font/google'
+import { EB_Garamond } from 'next/font/google'
 
-const inter = Inter({ 
+const ebGaramond = EB_Garamond({ 
   subsets: ['latin'],
   display: 'swap',
-  variable: '--font-inter',
+  variable: '--font-eb-garamond',
+  weight: ['400', '500', '600', '700', '800'],
 })
 
 export const metadata = {
-  title: 'My Next.js App',
-  description: 'Created with Next.js App Router using Inter font',
+  title: 'Channdavel',
+  description: 'Channdavel&apos;s personal website',
 }
 
 export default function RootLayout({
@@ -18,8 +19,8 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className={inter.variable}>
-      <body className="font-sans">
+    <html lang="en" className={ebGaramond.variable}>
+      <body className="font-eb-garamond">
         <header>
           {/* Add your header content here */}
         </header>

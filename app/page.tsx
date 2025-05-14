@@ -2,11 +2,13 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
+import Cat from './components/Cat'
 
 export default function Portfolio() {
   const [expanded, setExpanded] = useState(false)
   const [darkMode, setDarkMode] = useState(false)
   const [contactText, setContactText] = useState('Contact')
+  const [selectedProject, setSelectedProject] = useState<string | null>(null)
 
   const toggleInfo = () => {
     setExpanded(!expanded)
@@ -24,6 +26,63 @@ export default function Portfolio() {
     } catch (err) {
       console.error('Failed to copy email: ', err)
     }
+  }
+
+  const toggleProject = (projectName: string) => {
+    if (selectedProject === projectName) {
+      setSelectedProject(null)
+    } else {
+      setSelectedProject(projectName)
+    }
+  }
+
+  // Timeline data
+  const timelineItems = [
+    {
+      company: "WebstaurantStore",
+      position: "Software Engineer Intern",
+      period: "2025 - 2025",
+      details: "working on ...",
+      color: "#1E88E5"
+    },
+    {
+      company: "Epic Games",
+      position: "Freelance Game Developer",
+      period: "2024 - 2025",
+      details: "built Fortnite islands reaching 200k+ players with Unreal Editor",
+      color: "#FFC107"
+    },
+  ]
+
+  // Projects data
+  const projects = [
+    {
+      name: "Trails",
+      description: "Full-stack platform that matches oncology patients with clinical trials",
+      technologies: ["React", "Next.js", "Node.js", "Flask", "Python"]
+    },
+    {
+      name: "Eventify",
+      description: "Full-stack app that converts multimodal input (image, audio, text) into .ics calendar events",
+      technologies: ["React", "Next.js", "Flask", "Python", "Google Gemini API"]
+    },
+    {
+      name: "IP Searcher",
+      description: "Web app that allows a user to search for detailed information about an IP address",
+      technologies: ["JavaScript", "React", "Next.js", "Tailwind CSS", "Google Maps API"]
+    }
+  ]
+
+  const techColors: {[key: string]: string} = {
+    "TypeScript": "#3178C6",
+    "React": "#61DAFB",
+    "Next.js": "#000000",
+    "Node.js": "#339933",
+    "Express.js": "#F7DF1E",
+    "AWS": "#FF9900",
+    "JavaScript": "#F7DF1E",
+    "Supabase": "#3ECF8E",
+    "Spotify API": "#1DB954"
   }
 
   return (
@@ -46,16 +105,71 @@ export default function Portfolio() {
         .hover-text:hover {
           color: var(--hover-color) !important;
         }
+        .timeline-item {
+          position: relative;
+          padding-left: 30px;
+          margin-bottom: 30px;
+          transition: transform 0.2s;
+          cursor: pointer;
+        }
+        .timeline-item:hover {
+          transform: translateX(5px);
+        }
+        .timeline-item:before {
+          content: '';
+          position: absolute;
+          left: 0;
+          top: 8px;
+          width: 12px;
+          height: 12px;
+          border-radius: 50%;
+        }
+        .timeline-dot-blue:before { background-color: #F1DEDE; }
+        .timeline-dot-yellow:before { background-color: #ddfff7; }
+        .timeline-dot-green:before { background-color: #e3d7ff; }
+        .timeline-dot-red:before { background-color: #e1d89f; }
+        .timeline-item:not(:last-child):after {
+          content: '';
+          position: absolute;
+          left: 5px;
+          top: 20px;
+          width: 2px;
+          height: calc(100% + 15px);
+          background-color: #555;
+        }
+        .project-item {
+          cursor: pointer;
+          margin-bottom: 24px;
+          transition: transform 0.2s;
+        }
+        .project-item:hover {
+          transform: translateX(5px);
+        }
+        .tech-text {
+          margin-right: 12px;
+          color: #818181;
+          transition: color 0.3s ease;
+        }
+        .tech-text:hover {
+          color: var(--hover-color) !important;
+        }
+        .project-name {
+          color: var(--text-color);
+          transition: color 0.3s ease;
+        }
+        .project-name:hover {
+          color: var(--hover-color) !important;
+        }
       `}</style>
       <div className="min-h-screen transition-colors duration-300" style={{ backgroundColor: 'var(--bg-color)', color: 'var(--text-color)' }}>
-        <main className="max-w-7xl mx-auto p-8 flex flex-col md:flex-row justify-between items-start">
+        <main className="max-w-7xl mx-auto p-4 md:p-8 flex flex-col md:flex-row justify-start items-start">
           
           {/* Left Section */}
-          <div className="flex-1 mb-8 md:mb-0 px-4">
-            <h1 className="text-lg font-normal mb-4">Hello, I&apos;m Channdavel</h1>
+          <div className="w-full md:flex-1 mb-8 md:mb-0 md:px-4">
+            <h1 className="heading-style mb-4">Channdavel</h1>
             {expanded && (
               <div className="mt-4 animate-fade-in">
-                <p className="mb-4" style={{ color: '#818181' }}>
+                <p className="text-xl mb-4" style={{ color: '#818181' }}>
                   or CK
                 </p>
               </div>
@@ -63,37 +177,107 @@ export default function Portfolio() {
           </div>
 
           {/* Middle Section */}
-          <div className="flex-1 mb-8 md:mb-0 px-8">
-            <p className="text-lg font-normal mb-4">I develop</p>
-            <ul className="text-lg font-normal mb-4 space-y-2" style={{ color: '#818181' }}>
-              <li>full-stack applications and data-driven visualizations for others</li>
+          <div className="w-full md:flex-1 mb-8 md:mb-0 md:px-8">
+            <h2 className="heading-style mb-4">I develop</h2>
+            <ul className="text-xl font-normal mb-4 space-y-2" style={{ color: '#818181' }}>
+              <li>full-stack applications designed for usability with a focus on user experience</li>
             </ul>
-            <button
-              onClick={toggleInfo}
-              className="text-lg font-normal mb-4 focus:outline-none hover-text"
-            >
-              {expanded ? 'About -' : 'About +'}
-            </button>
+            <div className="text-xl font-normal mb-4 mt-8" style={{ marginTop: '3rem' }}>
+              <button
+                onClick={toggleInfo}
+                className="focus:outline-none hover-text"
+              >
+                {expanded ? 'About -' : 'About +'}
+              </button>
+            </div>
             {expanded && (
               <div className="mt-4 animate-fade-in">
-                <p className="text-lg font-normal mb-4">I learn</p>
-                <p className="mb-4" style={{ color: '#818181' }}>
-                  I&apos;m currently pursuing a Bachelor&apos;s Degree in Information Science and a Certificate in Children&apos;s Literature at the University of Pittsburgh. I have a passion for coding, learning, and building. 
+                <h2 className="heading-style mb-4">I study</h2>
+                <p className="text-xl mb-4" style={{ color: '#818181' }}>
+                  Information Science and Children&apos;s Literature at the University of Pittsburgh
                 </p>
+                
+                <h2 className="heading-style mb-4">I work</h2>
+                <div className="mb-8 max-w-full">
+                  {timelineItems.map((item, index) => {
+                    // Determine the CSS class based on the color
+                    let dotClass = '';
+                    if (item.color === '#1E88E5') dotClass = 'timeline-dot-blue';
+                    else if (item.color === '#FFC107') dotClass = 'timeline-dot-yellow';
+                    else if (item.color === '#4CAF50') dotClass = 'timeline-dot-green';
+                    else if (item.color === '#E53935') dotClass = 'timeline-dot-red';
+                    
+                    return (
+                      <div 
+                        key={index} 
+                        className={`timeline-item ${dotClass}`}
+                      >
+                        <div className="w-full flex flex-col">
+                          <div className="flex justify-between items-start w-full">
+                            <h3 className="text-xl font-medium" style={{ color: 'var(--text-color)' }}>{item.company}</h3>
+                            <span className="text-lg whitespace-nowrap ml-4" style={{ color: '#818181' }}>{item.period}</span>
+                          </div>
+                          
+                          <p className="text-xl w-full" style={{ color: '#818181' }}>{item.position}</p>
+                          <p className="text-lg mt-2 w-full" style={{ color: '#818181' }}>{item.details}</p>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+                
+                <h2 className="heading-style mb-4">I build</h2>
+                <div className="mb-8">
+                  {projects.map((project, index) => (
+                    <div key={index} className="mb-6">
+                      <div 
+                        className="project-item"
+                        onClick={() => toggleProject(project.name)}
+                      >
+                        <h3 className="text-xl font-medium project-name">{project.name}</h3>
+                        
+                        {selectedProject === project.name && (
+                          <div className="my-2">
+                            <div className="flex flex-wrap">
+                              {project.technologies.map((tech, techIndex) => (
+                                <span 
+                                  key={techIndex} 
+                                  className="text-lg tech-text"
+                                >
+                                  {tech}{techIndex < project.technologies.length - 1 ? ', ' : ''}
+                                </span>
+                              ))}
+                            </div>
+                          </div>
+                        )}
+                        
+                        <p className="text-lg mt-1" style={{ color: '#818181' }}>{project.description}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
               </div>
             )}
           </div>
 
           {/* Right Section */}
-          <div className="flex-1 mb-8 md:mb-0 px-12">
-            <h2 className="text-lg font-normal mb-4">Let&apos;s connect</h2>
-            <ul className="text-lg font-normal mb-4 space-y-2">
+          <div className="w-full md:flex-1 mb-8 md:mb-0 md:px-12">
+            <h2 className="heading-style mb-4">Let&apos;s connect</h2>
+            <ul className="text-xl font-normal mb-4 space-y-2">
               <li>
                 <Link 
                   href="https://linkedin.com/in/channdavel" 
                   className="focus:outline-none hover-text"
                 >
                   <span className="hover-text">LinkedIn</span>
+                </Link>
+              </li>
+              <li>
+                <Link 
+                  href="https://github.com/channdavel" 
+                  className="focus:outline-none hover-text"
+                >
+                  <span className="hover-text">GitHub</span>
                 </Link>
               </li>
               <li>
@@ -116,13 +300,9 @@ export default function Portfolio() {
           </div>
         </main>
         
-        {/* Fixed Flower Icon */}
-        <div className="fixed top-8 right-8 w-1000 h-1000">
-          <ul className={`petals ${darkMode ? 'dark' : ''}`} style={{ transform: 'scale(0.16)' }}>
-            <li></li>
-            <li></li>
-            <li></li>
-          </ul>
+        {/* Fixed Cat Icon */}
+        <div className="fixed top-20 right-8 hidden md:block">
+          <Cat darkMode={darkMode} />
         </div>
       </div>
     </div>

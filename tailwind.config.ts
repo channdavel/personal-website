@@ -8,7 +8,8 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['var(--font-inter)'],
+        'eb-garamond': ['var(--font-eb-garamond)', 'serif'],
+        sans: ['var(--font-eb-garamond)', 'serif'],
       },
     },
   },
