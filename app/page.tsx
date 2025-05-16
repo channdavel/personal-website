@@ -47,7 +47,7 @@ export default function Portfolio() {
     },
     {
       company: "Epic Games",
-      position: "Freelance Game Developer",
+      position: "Freelance Programmer",
       period: "2024 - 2025",
       details: "built Fortnite islands reaching 200k+ players with Unreal Editor",
       color: "#FFC107"
